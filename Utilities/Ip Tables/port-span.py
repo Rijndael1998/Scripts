@@ -11,6 +11,7 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--destport", required=False, help="First destination port", default=None)
     parser.add_argument("-i", "--inter", help="Interface to \"listen\" on", default="enp8")
     parser.add_argument("-p", "--proto", help="The protocol. (tcp or udp)", default="tcp", choices=["tcp", "udp"])
+    parser.add_argument("-e", "--execute", help="Execute the command", action="count")
     args = parser.parse_args()
 
 
@@ -21,6 +22,12 @@ if __name__ == "__main__":
     i = 0
     dest = int(args.destport) if args.destport is not None else int(port[0])
     for locport in range(int(port[0]), int(port[1])+1):
-        print(pc.construct(args.locaddr, locport, args.destaddr, dest + i, args.inter, args.proto))
+        if not args.execute:
+            print(pc.construct(args.locaddr, locport, args.destaddr, dest + i, args.inter, args.proto))
+
+        else:
+            pc.execute(args.locaddr, locport, args.destaddr, dest + i, args.inter, args.proto)
+
         i += 1
+
 
