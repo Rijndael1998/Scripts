@@ -3,8 +3,9 @@
 
 class PortConstructor:
     from os import system as sys
-    ruleTemplate =  "iptables -t nat -A PREROUTING -i {inter} -p {proto} -m {proto} --dport {locport} -j DNAT --to-destination {destaddr}:{destport}\n"
-    ruleTemplate += "iptables -t nat -A POSTROUTING -o {inter} -j SNAT --to-source {locaddr}"
+    ruleTemplate =  "iptables -t nat -A PREROUTING -i {inter} -p {proto} --dport {locport} -j DNAT --to-destination {destaddr}:{destport}\n" # Forward
+    ruleTemplate += "iptables -t nat -A POSTROUTING -o {inter} -j SNAT --to-source {locaddr}\n" # Back
+    ruleTemplate += "iptables -A FORWARD -p {proto} -d {locaddr} --dport {locport} -j ACCEPT" # Allow
 
     def construct(self, locaddr, locport, destaddr, destport, inter, proto):
         return self.ruleTemplate.format(locaddr=locaddr, locport=locport, destaddr=destaddr, destport=destport, inter=inter, proto=proto)
