@@ -10,7 +10,7 @@ if __name__ == "__main__":
     parser.add_argument("-D", "--destaddr", required=True, help="Destination IP")
     parser.add_argument("-d", "--destport", required=False, help="First destination port", default=None)
     parser.add_argument("-i", "--inter", help="Interface to \"listen\" on", default="enp8")
-    parser.add_argument("-p", "--proto", help="The protocol. (tcp or udp)", default="tcp", choices=["tcp", "udp"])
+    parser.add_argument("-p", "--proto", help="The protocol. (tcp or udp or both)", default="tcp", choices=["tcp", "udp", "both"])
     parser.add_argument("-e", "--execute", help="Execute the command", action="count")
     args = parser.parse_args()
 
@@ -19,15 +19,22 @@ if __name__ == "__main__":
     from port import PortConstructor
     pc = PortConstructor()
 
-    i = 0
-    dest = int(args.destport) if args.destport is not None else int(port[0])
-    for locport in range(int(port[0]), int(port[1])+1):
-        if not args.execute:
-            print(pc.construct(args.locaddr, locport, args.destaddr, dest + i, args.inter, args.proto))
+    if args.proto == "both":
+        protos = ["tcp", "udp"]
 
-        else:
-            pc.execute(args.locaddr, locport, args.destaddr, dest + i, args.inter, args.proto)
+    else:
+        protos = [args.proto]
+    
+    for proto in protos:
+        i = 0
+        dest = int(args.destport) if args.destport is not None else int(port[0])
+        for locport in range(int(port[0]), int(port[1])+1):
+            if not args.execute:
+                print(pc.construct(args.locaddr, locport, args.destaddr, dest + i, args.inter, proto))
 
-        i += 1
+            else:
+                pc.execute(args.locaddr, locport, args.destaddr, dest + i, args.inter, proto)
+
+            i += 1
 
 

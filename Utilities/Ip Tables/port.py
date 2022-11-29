@@ -25,13 +25,20 @@ if __name__ == "__main__":
     parser.add_argument("-D", "--destaddr", required=True, help="Destination IP")
     parser.add_argument("-d", "--destport", required=True, help="Destination port")
     parser.add_argument("-i", "--inter", help="Interface to \"listen\" on", default="enp8")
-    parser.add_argument("-p", "--proto", help="The protocol. (tcp or udp)", default="tcp", choices=["tcp", "udp"])
+    parser.add_argument("-p", "--proto", help="The protocol. (tcp or udp or both)", default="tcp", choices=["tcp", "udp", "both"])
     parser.add_argument("-e", "--execute", help="Execute the command", action="count")
     args = parser.parse_args()
 
-    if not args.execute:
-        print(PortConstructor().construct(args.locaddr, args.locport, args.destaddr, args.destport, args.inter, args.proto))
-    
+    if args.proto == "both":
+        protos = ["tcp", "udp"]
+
     else:
-        PortConstructor().execute(args.locaddr, args.locport, args.destaddr, args.destport, args.inter, args.proto)
+        protos = [args.proto]
+
+    for proto in protos:
+        if not args.execute:
+            print(PortConstructor().construct(args.locaddr, args.locport, args.destaddr, args.destport, args.inter, proto))
+        
+        else:
+            PortConstructor().execute(args.locaddr, args.locport, args.destaddr, args.destport, args.inter, proto)
 
