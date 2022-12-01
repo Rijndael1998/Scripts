@@ -3,6 +3,7 @@
 
 class PortConstructor:
     from os import system as sys
+    from time import sleep, time
     ruleTemplate =  "iptables -t nat -A PREROUTING -i {inter} -p {proto} --dport {locport} -j DNAT --to-destination {destaddr}:{destport}\n" # Forward
     ruleTemplate += "iptables -t nat -A POSTROUTING -o {inter} -j SNAT --to-source {locaddr}\n" # Back
     ruleTemplate += "iptables -A FORWARD -p {proto} -d {locaddr} --dport {locport} -j ACCEPT" # Allow
@@ -12,7 +13,8 @@ class PortConstructor:
 
     def execute(self, locaddr, locport, destaddr, destport, inter, proto):
         command = self.construct(locaddr, locport, destaddr, destport, inter, proto)
-        print("".join("> " + com + "\n" for com in command.split("\n")))
+        print(self.time() + "".join(" > " + com + "\n" for com in command.split("\n")))
+        self.sleep(0.1)
         self.sys(command)
 
 
