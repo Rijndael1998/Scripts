@@ -13,7 +13,7 @@ class PortConstructor:
 
     def execute(self, locaddr, locport, destaddr, destport, inter, proto):
         command = self.construct(locaddr, locport, destaddr, destport, inter, proto)
-        print(self.time() + "".join(" > " + com + "\n" for com in command.split("\n")))
+        print(str(self.time()) + "".join(" > " + com + "\n" for com in command.split("\n")))
         self.sleep(0.1)
         self.sys(command)
 
