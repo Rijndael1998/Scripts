@@ -1,0 +1,7 @@
+[
+    {
+        "domain": "example.com",
+        "reverse": "http://localhost:80/",
+        "keys": "/etc/letsencrypt/live/*/"
+    }
+]
