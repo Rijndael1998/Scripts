@@ -165,7 +165,7 @@ systemctl restart apache2
 ```
 
 ##### Creating a configuration for an example domain fowarding to another machine.
-If you wanted to forward some Pterodactyl dashboard (pterodactyl.example.com) running on another machine (`http://192.168.0.2:80/), you could the same approch as above. 
+If you wanted to forward some Pterodactyl dashboard (pterodactyl.example.com) running on another machine (`http://192.168.0.2:80/`), you could the same approch as above. 
 
 Create the `proxy-websites.json` file:
 ```json
