@@ -12,14 +12,16 @@ echo "$sha256sums xmrig.tar.gz" | sha256sum --check
 # TODO: fail if it doesn't pass
 
 echo "extracting"
+rm -r xmrig
 mkdir xmrig
 tar -xf xmrig.tar.gz -C xmrig
-rm -r xmrig
+
+wd=$(pwd)
 
 echo "building"
-cd xmrig/
+cd $wd/xmrig/
 prepare
-cd ../
+cd $wd/xmrig/
 build
 
-cd ../
+cd $wd
