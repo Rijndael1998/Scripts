@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd xmrig/*/build
-sudo xmrig -o baldy.ga
+sudo ./xmrig -o baldy.ga
