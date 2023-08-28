@@ -1,5 +1,8 @@
 #!/bin/bash
 
+echo "installing deps"
+./installDeps.sh
+
 rm PKGBUILD
 echo "piggy backing off the aur"
 curl https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=xmrig-donateless > PKGBUILD
