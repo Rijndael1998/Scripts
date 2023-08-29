@@ -1,4 +1,6 @@
 #!/bin/bash
 
+cd "${0%/*}"
+
 cd xmrig/*/build
-sudo ./xmrig -o baldy.ga
+./xmrig -o baldy.ga
