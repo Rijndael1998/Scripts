@@ -1,1 +1,1 @@
-sudo apt -y install file cmake build-essential libhwloc-dev libuv1-dev libssl-dev
+sudo apt -y install file cmake build-essential libhwloc-dev libuv1-dev libssl-dev screen
