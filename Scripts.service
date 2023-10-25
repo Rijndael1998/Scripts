@@ -1,0 +1,11 @@
+[Unit]
+Description=Rin's Scripts Updater
+After=network.target
+After=systemd-user-sessions.service
+After=network-online.target
+
+[Service]
+ExecStart=/etc/Scripts/updateSelf.sh
+
+[Install]
+WantedBy=multi-user.target
